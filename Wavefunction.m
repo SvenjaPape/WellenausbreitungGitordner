@@ -30,6 +30,36 @@ c = 343;          % sound velocity for calculating frequency
 % phaseB = str2double(answer{6});
 % angle = answer{7};
 
+%% Global variables + processing in order to place Sources
+% variables are set global to fetch them from clickCallback-function
+global coordinates
+global coordinatesA
+global coordinatesB
+global mousebutton
+
+% variables for coordinates/A/B are set to zero if the coordinates aren't 
+%set already
+if isempty(coordinates)
+    coordinates = [0 0];
+end
+
+if isempty(coordinatesA)
+    coordinatesA = [0 0];
+end
+
+if isempty(coordinatesB)
+    coordinatesB = [0 0];
+end
+
+% it is checked if the user clicked right or left mouse-button 
+
+if strcmp(mousebutton,'right')
+    coordinatesA = coordinates;
+elseif strcmp(mousebutton,'left')
+    coordinatesB = coordinates;
+end
+
+
 
 freqA = 100;
 freqB = 100;
@@ -48,12 +78,13 @@ kB = (2*pi()*freqB)/c;
 phaseA = (2*pi()/360)*phaseA;
 phaseB = (2*pi()/360)*phaseB;
 
-xa=-11:0.1:39;
-ya=-11:0.1:39;
-[Xa,Ya] = meshgrid(xa,ya); % create rectangullar mesh
+% the coordinates of the sources A and B are set, default place is central
+xA =(-25 - coordinatesA(1)):0.1:(25 - coordinatesA(1));
+yA =(-25 - coordinatesA(2)):0.1:(25 - coordinatesA(2));
+[Xa,Ya] = meshgrid(xA,yA); % create rectangullar mesh
 
-xb=-20:0.1:30;
-yb=-20:0.1:30;
+xb=(-25 - coordinatesB(1)):0.1:(25 - coordinatesB(1));
+yb=(-25 - coordinatesB(2)):0.1:(25 - coordinatesB(2));
 [Xb,Yb] = meshgrid(xb,yb);
 
 xgrund = -25:0.1:25;
@@ -65,7 +96,7 @@ Ra=sqrt(Xa.^2+Ya.^2);       %radius
 Rb=sqrt(Xb.^2+Yb.^2);       
 
 %% Animation of the sinusoidal waves
-% MUSS NOCH VERNÜNFTIG!
+% MUSS NOCH VERNÜNFTIG HOCHGEZÄHLT WERDEN!
 time = clock;
 phi = time(6)*-2;
 
@@ -89,5 +120,11 @@ end
 colormap('gray');
 shading interp;
 
+%coordinates = getappdata(clickHandle.Parent,'coordinates');
+
+
+% if exist('coordinates', 'var')
+% disp('JEPP')
+% end
 
 end

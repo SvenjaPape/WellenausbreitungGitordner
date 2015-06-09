@@ -1,5 +1,5 @@
 % Script to call Wavefunction in GUI
-clear
+clear all
 close all
 
 phi = 1;
