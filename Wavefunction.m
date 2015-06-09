@@ -50,7 +50,7 @@ phaseB = (2*pi()/360)*phaseB;
 
 xa=-11:0.1:39;
 ya=-11:0.1:39;
-[Xa,Ya] = meshgrid(xa,ya); % greate rectangullar mesh
+[Xa,Ya] = meshgrid(xa,ya); % create rectangullar mesh
 
 xb=-20:0.1:30;
 yb=-20:0.1:30;
@@ -76,7 +76,8 @@ Zmix = Za + Zb;
 
 
 %surf(Xgrund,Ygrund, Z2);
-surf(Xgrund, Ygrund, Zmix);  %RICHTIGE ÜBERLAGERUNG
+figure1 = surf(Xgrund, Ygrund, Zmix);  %RICHTIGE ÜBERLAGERUNG
+set(figure1,'ButtonDownFcn',@clickCallback);
 
 if strcmp(angle,'3D')
     view([0 50])
