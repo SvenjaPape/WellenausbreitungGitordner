@@ -1,5 +1,4 @@
-clear all
-close all
+function Wavefunction(handle, event)
 
 %Quelle:
 %-Ansicht von oben: https://nf.nci.org.au/facilities/software/Matlab/techdoc/ref/pcolor.html 
@@ -11,26 +10,34 @@ c = 343;          % sound velocity for calculating frequency
 % - 
 
 %% Input dialog for disired parameters of sources
-prompt={'Enter frequency of source A:',...
-        'Enter frequency of source B:',...
-        'Enter amplitude of source A:', ...
-        'Enter amplitude of source B:', ...
-        'Enter phase of source A:'...
-        'Enter phase of source B:', ...
-        '3D oder 2D eingeben'};
-name='Input for sinusoids';
-numlines=1;
-defaultanswer={'100','10', '1', '1',  '0', '180', '2D'};
-answer=inputdlg(prompt,name,numlines,defaultanswer);
+% prompt={'Enter frequency of source A:',...
+%         'Enter frequency of source B:',...
+%         'Enter amplitude of source A:', ...
+%         'Enter amplitude of source B:', ...
+%         'Enter phase of source A:'...
+%         'Enter phase of source B:', ...
+%         '3D oder 2D eingeben'};
+% name='Input for sinusoids';
+% numlines=1;
+% defaultanswer={'100','10', '1', '1',  '0', '180', '2D'};
+% answer=inputdlg(prompt,name,numlines,defaultanswer);
+% 
+% freqA = str2double(answer{1});
+% freqB = str2double(answer{2});
+% amplA = str2double(answer{3});
+% amplB = str2double(answer{4});
+% phaseA = str2double(answer{5});
+% phaseB = str2double(answer{6});
+% angle = answer{7};
 
-freqA = str2double(answer{1});
-freqB = str2double(answer{2});
-amplA = str2double(answer{3});
-amplB = str2double(answer{4});
-phaseA = str2double(answer{5});
-phaseB = str2double(answer{6});
-angle = answer{7};
 
+freqA = 100;
+freqB = 100;
+amplA = 1;
+amplB = 1;
+phaseA = 180;
+phaseB = 180;
+angle = '2D';
 
 %% Calculation of parameters used in generating sinusoids
 % input frequency is transformed to wave number
@@ -40,8 +47,6 @@ kB = (2*pi()*freqB)/c;
 % input phase in degree is transformed to radiant
 phaseA = (2*pi()/360)*phaseA;
 phaseB = (2*pi()/360)*phaseB;
-
-hfig = figure();
 
 xa=-11:0.1:39;
 ya=-11:0.1:39;
@@ -60,7 +65,10 @@ Ra=sqrt(Xa.^2+Ya.^2);       %radius
 Rb=sqrt(Xb.^2+Yb.^2);       
 
 %% Animation of the sinusoidal waves
-for phi = linspace(30*pi(),0,500)
+% MUSS NOCH VERNÜNFTIG!
+time = clock;
+phi = time(6)*-2;
+
 
 Za = amplA * sin(kA * Ra + (phi+phaseA));
 Zb = amplB * sin(kB * Rb + (phi+phaseB));
@@ -80,6 +88,5 @@ end
 colormap('gray');
 shading interp;
 
-pause(0.05)
 
 end
