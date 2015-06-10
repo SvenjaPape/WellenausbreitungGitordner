@@ -108,6 +108,11 @@ Zmix = Za + Zb;
 
 %surf(Xgrund,Ygrund, Z2);
 figure1 = surf(Xgrund, Ygrund, Zmix);  %RICHTIGE ÜBERLAGERUNG
+% sliderFreq = uicontrol(figure1, 'Style', 'slider',... VERSUCH ZU GUI
+%                        'Min',10,'Max',300, ...
+%                        'Value',100, ...
+%                        'SliderStep',[1 10],...
+%                        'Position',[30 20 10 10]);
 set(figure1,'ButtonDownFcn',@clickCallback);
 
 if strcmp(angle,'3D')
