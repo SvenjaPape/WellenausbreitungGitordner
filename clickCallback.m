@@ -21,6 +21,8 @@ switch get(gcf, 'selectiontype')
         mousebutton = 'left';
     case 'alt'
         mousebutton = 'right';
+    case 'extend'
+        mousebutton = 'both';
 end
 
 end

@@ -1,9 +1,6 @@
 function Wavefunction(handle, event)
 
-%Quelle:
-%-Ansicht von oben: https://nf.nci.org.au/facilities/software/Matlab/techdoc/ref/pcolor.html 
 c = 343;          % sound velocity for calculating frequency
-
 
 %% Ideen:
 % - Vielleicht noch einen Dämpfungsfaktor?
@@ -16,6 +13,7 @@ c = 343;          % sound velocity for calculating frequency
 global coordinates
 global coordinatesA
 global coordinatesB
+global coordinatesL
 global mousebutton
 
 % variables are set global to fetch them from "SinusWaves" script
@@ -41,7 +39,10 @@ if strcmp(mousebutton,'right')
     coordinatesA = coordinates;
 elseif strcmp(mousebutton,'left')
     coordinatesB = coordinates;
+elseif strcmp(mousebutton,'both')
+   coordinatesL = coordinates;
 end
+
 
 
 % freqA = 10;
@@ -51,6 +52,7 @@ end
 % phaseA = 180;
 % phaseB = 180;
 % angle = '3D';
+
 
 %% Calculation of parameters used in generating sinusoids
 % input frequency is transformed to wave number
@@ -104,6 +106,8 @@ Za = amplA * sin(kA * Ra + (phi+phaseA));
 Zb = amplB * sin(kB * Rb + (phi+phaseB));
 Zmix = Za + Zb;
 
+figure1 = surf(XArea, YArea, Zmix); 
+
 
 %surf(Xgrund,Ygrund, Z2);
 figure1 = surf(XArea, YArea, Zmix);  %RICHTIGE ÜBERLAGERUNG
@@ -112,6 +116,7 @@ figure1 = surf(XArea, YArea, Zmix);  %RICHTIGE ÜBERLAGERUNG
 %                        'Value',100, ...
 %                        'SliderStep',[1 10],...
 %                        'Position',[30 20 10 10]);
+
 set(figure1,'ButtonDownFcn',@clickCallback);
 
 xlim([minArea maxArea]);
@@ -123,15 +128,14 @@ else
     view([0 90])
 end
 
-%axis equal;
 colormap('gray');
 shading interp;
 
-%coordinates = getappdata(clickHandle.Parent,'coordinates');
-
-
-% if exist('coordinates', 'var')
-% disp('JEPP')
+% if ~isempty(coordinatesL)
+%     % Hier kommt dann der Linienplot hin
+% %     xVec = coordinatesL(1)-5:coordinatesL(1)+5;
+% %     yVec = coordinatesL(2)-5:coordinatesL(2)+5;
 % end
+
 
 end
