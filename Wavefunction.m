@@ -34,12 +34,12 @@ global angle
 
 
 %% Processing in order to place Sources
-% it is checked if the user clicked right or left mouse-button 
+% it is checked mouse-button which mouse-button (+ shit) the user used 
 if strcmp(mousebutton,'right')
     coordinatesA = coordinates;
 elseif strcmp(mousebutton,'left')
     coordinatesB = coordinates;
-elseif strcmp(mousebutton,'both')
+elseif strcmp(mousebutton,'leftShift')
    coordinatesL = coordinates;
 end
 
@@ -65,8 +65,10 @@ phaseB = (2*pi()/360)*phaseB;
 
 
 % variables for coordinates/A/B are set to zero if the coordinates aren't 
-%set already
-startPoint = (maxArea - minArea)/2; % HÄLFTE VON AREA MAX!!!
+%set already, so that sources start in the center of plot
+startPoint = (maxArea + minArea)/2; % HÄLFTE VON AREA MAX!!!
+moveNumber = (startPoint - minArea);
+
 
 if isempty(coordinates)
     coordinates = [startPoint startPoint];
@@ -82,12 +84,21 @@ end
 
 
 % the coordinates of the sources A and B are set, default place is central
-xA =(minArea - coordinatesA(1)):resolution:(maxArea - coordinatesA(1));
-yA =(minArea - coordinatesA(2)):resolution:(maxArea - coordinatesA(2));
+% xA =(minArea - coordinatesA(1)):resolution:(maxArea - coordinatesA(1));
+% yA =(minArea - coordinatesA(2)):resolution:(maxArea - coordinatesA(2));
+% [Xa,Ya] = meshgrid(xA,yA); % create rectangullar mesh
+
+
+
+
+xA =(minArea - coordinatesA(1,1)):resolution:(maxArea - coordinatesA(1,1));
+yA =(minArea - coordinatesA(1,2)):resolution:(maxArea - coordinatesA(1,2));
 [Xa,Ya] = meshgrid(xA,yA); % create rectangullar mesh
 
-xb=(minArea - coordinatesB(1)):resolution:(maxArea - coordinatesB(1));
-yb=(minArea - coordinatesB(2)):resolution:(maxArea - coordinatesB(2));
+
+
+xb=(minArea - coordinatesB(1,1)):resolution:(maxArea - coordinatesB(1,1));
+yb=(minArea - coordinatesB(1,2)):resolution:(maxArea - coordinatesB(1,2));
 [Xb,Yb] = meshgrid(xb,yb);
 
 
@@ -106,7 +117,7 @@ Za = amplA * sin(kA * Ra + (phi+phaseA));
 Zb = amplB * sin(kB * Rb + (phi+phaseB));
 Zmix = Za + Zb;
 
-figure1 = surf(XArea, YArea, Zmix); 
+%figure1 = surf(XArea, YArea, Zmix); 
 
 
 %surf(Xgrund,Ygrund, Z2);
@@ -131,10 +142,17 @@ end
 colormap('gray');
 shading interp;
 
+%% Line plot section
+% disp(coordinates)
+% coordinateXLines = floor(coordinates(1,1))
+% coordinateYLines = floor(coordinates(1,2))
+% 
+% disp(coordinatesL);
+
 % if ~isempty(coordinatesL)
 %     % Hier kommt dann der Linienplot hin
-% %     xVec = coordinatesL(1)-5:coordinatesL(1)+5;
-% %     yVec = coordinatesL(2)-5:coordinatesL(2)+5;
+%     xVec = coordinatesL(1)-5:coordinatesL(1)+5;
+%     yVec = coordinatesL(2)-5:coordinatesL(2)+5;
 % end
 
 

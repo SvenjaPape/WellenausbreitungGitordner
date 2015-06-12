@@ -20,7 +20,7 @@ prompt={'Enter frequency of source A:',...
         '3D oder 2D eingeben'};
 name='Input for sinusoids';
 numlines=1;
-defaultanswer={'100','10', '1', '1',  '0', '180', '2D'};
+defaultanswer={'10','10', '1', '1',  '0', '180', '2D'};
 answer=inputdlg(prompt,name,numlines,defaultanswer);
 
 freqA = str2double(answer{1});
@@ -44,10 +44,10 @@ global maxArea
 global resolution
 
 % variables for size of area are Set 
-minArea = 1;
-maxArea = 1001;
+minArea = -200;
+maxArea = 200;
 
-resolution = 3; % the "resolution" (stepsize) of the area is set
+resolution = 1; % the "resolution" (stepsize) of the area is set
 
 xArea = minArea:resolution:maxArea;
 yArea = minArea:resolution:maxArea;
@@ -55,7 +55,7 @@ yArea = minArea:resolution:maxArea;
 
 
 figure1 = figure();
-t = timer('Period', 0.2, 'TimerFcn', @Wavefunction, 'ExecutionMode', 'FixedRate');
+t = timer('Period', 0.3, 'TimerFcn', @Wavefunction, 'ExecutionMode', 'FixedRate');
 start(t);
 uiwait(figure1);
 stop(t);

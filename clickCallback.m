@@ -6,23 +6,28 @@ global coordinates
 
 % coordinates are fetched from mouseclick
 axesHandle  = get(ClickHandle,'Parent');
-coordinates = get(axesHandle,'CurrentPoint'); 
+coordinates = get(axesHandle,'CurrentPoint');
 coordinates = coordinates(1,1:2);
 
-% variable "mousebutton" is set global to use it in "Wavefunction"
+% variable "mousebutton" is set global for further use in "Wavefunction"
 global mousebutton
 
 
 %% Get mouse-Button side
-% the user mouse-click is registered as left or right and result is saved
+% the user mouse-click is registered as left, right or in combination with
+%shift (to have better names in "Wavefunction") and result is saved
 %Quelle: http://www.mathworks.com/matlabcentral/newsreader/view_thread/280159
-switch get(gcf, 'selectiontype')
+
+switch get(gcf, 'selectiontype') %Problem: Reagiert manchmal nicht+setzt Quelle nicht; Reagiert nicht und führt nochmal alten selectiontype aus
     case 'normal'
         mousebutton = 'left';
+        disp('Links')
     case 'alt'
         mousebutton = 'right';
-    case 'extend'
-        mousebutton = 'both';
+        disp('Rechts')
+    case 'extend'   % Shift + mousebutton left
+        mousebutton = 'leftSHift';
+        disp('Links+Shift')
 end
 
 end
