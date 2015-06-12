@@ -12,6 +12,7 @@ coordinates = coordinates(1,1:2);
 % variable "mousebutton" is set global to use it in "Wavefunction"
 global mousebutton
 
+
 %% Get mouse-Button side
 % the user mouse-click is registered as left or right and result is saved
 %Quelle: http://www.mathworks.com/matlabcentral/newsreader/view_thread/280159

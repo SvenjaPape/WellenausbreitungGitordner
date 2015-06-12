@@ -9,50 +9,34 @@ c = 343;          % sound velocity for calculating frequency
 % - Vielleicht noch einen Dämpfungsfaktor?
 % - 
 
-%% Input dialog for disired parameters of sources
-% prompt={'Enter frequency of source A:',...
-%         'Enter frequency of source B:',...
-%         'Enter amplitude of source A:', ...
-%         'Enter amplitude of source B:', ...
-%         'Enter phase of source A:'...
-%         'Enter phase of source B:', ...
-%         '3D oder 2D eingeben'};
-% name='Input for sinusoids';
-% numlines=1;
-% defaultanswer={'100','10', '1', '1',  '0', '180', '2D'};
-% answer=inputdlg(prompt,name,numlines,defaultanswer);
-% 
-% freqA = str2double(answer{1});
-% freqB = str2double(answer{2});
-% amplA = str2double(answer{3});
-% amplB = str2double(answer{4});
-% phaseA = str2double(answer{5});
-% phaseB = str2double(answer{6});
-% angle = answer{7};
 
-%% Global variables + processing in order to place Sources
+
+%% Global variables
 % variables are set global to fetch them from clickCallback-function
 global coordinates
 global coordinatesA
 global coordinatesB
 global mousebutton
 
-% variables for coordinates/A/B are set to zero if the coordinates aren't 
-%set already
-if isempty(coordinates)
-    coordinates = [0 0];
-end
+% variables are set global to fetch them from "SinusWaves" script
+global XArea
+global YArea
 
-if isempty(coordinatesA)
-    coordinatesA = [0 0];
-end
+global minArea
+global maxArea
+global resolution
 
-if isempty(coordinatesB)
-    coordinatesB = [0 0];
-end
+global freqA
+global freqB
+global amplA
+global amplB
+global phaseA
+global phaseB
+global angle
 
+
+%% Processing in order to place Sources
 % it is checked if the user clicked right or left mouse-button 
-
 if strcmp(mousebutton,'right')
     coordinatesA = coordinates;
 elseif strcmp(mousebutton,'left')
@@ -60,14 +44,13 @@ elseif strcmp(mousebutton,'left')
 end
 
 
-
-freqA = 100;
-freqB = 100;
-amplA = 1;
-amplB = 1;
-phaseA = 180;
-phaseB = 180;
-angle = '2D';
+% freqA = 10;
+% freqB = 10;
+% amplA = 1;
+% amplB = 1;
+% phaseA = 180;
+% phaseB = 180;
+% angle = '3D';
 
 %% Calculation of parameters used in generating sinusoids
 % input frequency is transformed to wave number
@@ -78,27 +61,43 @@ kB = (2*pi()*freqB)/c;
 phaseA = (2*pi()/360)*phaseA;
 phaseB = (2*pi()/360)*phaseB;
 
+
+% variables for coordinates/A/B are set to zero if the coordinates aren't 
+%set already
+startPoint = (maxArea - minArea)/2; % HÄLFTE VON AREA MAX!!!
+
+if isempty(coordinates)
+    coordinates = [startPoint startPoint];
+end
+
+if isempty(coordinatesA)
+    coordinatesA = [startPoint startPoint];
+end
+
+if isempty(coordinatesB)
+    coordinatesB = [startPoint startPoint];
+end
+
+
 % the coordinates of the sources A and B are set, default place is central
-xA =(-25 - coordinatesA(1)):0.1:(25 - coordinatesA(1));
-yA =(-25 - coordinatesA(2)):0.1:(25 - coordinatesA(2));
+xA =(minArea - coordinatesA(1)):resolution:(maxArea - coordinatesA(1));
+yA =(minArea - coordinatesA(2)):resolution:(maxArea - coordinatesA(2));
 [Xa,Ya] = meshgrid(xA,yA); % create rectangullar mesh
 
-xb=(-25 - coordinatesB(1)):0.1:(25 - coordinatesB(1));
-yb=(-25 - coordinatesB(2)):0.1:(25 - coordinatesB(2));
+xb=(minArea - coordinatesB(1)):resolution:(maxArea - coordinatesB(1));
+yb=(minArea - coordinatesB(2)):resolution:(maxArea - coordinatesB(2));
 [Xb,Yb] = meshgrid(xb,yb);
 
-xgrund = -25:0.1:25;
-ygrund = -25:0.1:25;
-[Xgrund,Ygrund] = meshgrid(xgrund,ygrund);
 
-
-Ra=sqrt(Xa.^2+Ya.^2);       %radius
-Rb=sqrt(Xb.^2+Yb.^2);       
 
 %% Animation of the sinusoidal waves
 % MUSS NOCH VERNÜNFTIG HOCHGEZÄHLT WERDEN!
 time = clock;
 phi = time(6)*-2;
+
+
+Ra=sqrt(Xa.^2+Ya.^2);       %radius
+Rb=sqrt(Xb.^2+Yb.^2);
 
 
 Za = amplA * sin(kA * Ra + (phi+phaseA));
@@ -107,13 +106,16 @@ Zmix = Za + Zb;
 
 
 %surf(Xgrund,Ygrund, Z2);
-figure1 = surf(Xgrund, Ygrund, Zmix);  %RICHTIGE ÜBERLAGERUNG
+figure1 = surf(XArea, YArea, Zmix);  %RICHTIGE ÜBERLAGERUNG
 % sliderFreq = uicontrol(figure1, 'Style', 'slider',... VERSUCH ZU GUI
 %                        'Min',10,'Max',300, ...
 %                        'Value',100, ...
 %                        'SliderStep',[1 10],...
 %                        'Position',[30 20 10 10]);
 set(figure1,'ButtonDownFcn',@clickCallback);
+
+xlim([minArea maxArea]);
+ylim([minArea maxArea]);
 
 if strcmp(angle,'3D')
     view([0 50])
