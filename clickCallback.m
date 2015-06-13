@@ -21,13 +21,13 @@ global mousebutton
 switch get(gcf, 'selectiontype') %Problem: Reagiert manchmal nicht+setzt Quelle nicht; Reagiert nicht und führt nochmal alten selectiontype aus
     case 'normal'
         mousebutton = 'left';
-        disp('Links')
+        %disp('Links')
     case 'alt'
         mousebutton = 'right';
-        disp('Rechts')
+        %disp('Rechts')
     case 'extend'   % Shift + mousebutton left
         mousebutton = 'leftShift';
-        disp('Links+Shift')
+        %disp('Links+Shift')
 end
 
 end

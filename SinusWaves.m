@@ -31,7 +31,7 @@ phaseA = str2double(answer{5});
 phaseB = str2double(answer{6});
 angle = answer{7};
 
-phi = 1;
+phi = 1;    % onetime set of variable for wave-movement
 
 global xArea
 global yArea
@@ -44,15 +44,15 @@ global maxArea
 global resolution
 
 % variables for size of area are Set 
-minArea = -200;
-maxArea = 200;
+minArea = 50;   % so that indices are always > 0 even if lineplot is made 
+                %at a corner
+maxArea = 450;
 
 resolution = 1; % the "resolution" (stepsize) of the area is set
 
 xArea = minArea:resolution:maxArea;
 yArea = minArea:resolution:maxArea;
 [XArea,YArea] = meshgrid(xArea,yArea);
-
 
 figure1 = figure();
 t = timer('Period', 0.3, 'TimerFcn', @Wavefunction, 'ExecutionMode', 'FixedRate');
