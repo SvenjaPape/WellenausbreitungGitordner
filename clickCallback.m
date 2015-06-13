@@ -26,7 +26,7 @@ switch get(gcf, 'selectiontype') %Problem: Reagiert manchmal nicht+setzt Quelle 
         mousebutton = 'right';
         disp('Rechts')
     case 'extend'   % Shift + mousebutton left
-        mousebutton = 'leftSHift';
+        mousebutton = 'leftShift';
         disp('Links+Shift')
 end
 

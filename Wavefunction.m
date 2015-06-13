@@ -117,14 +117,13 @@ Za = amplA * sin(kA * Ra + (phi+phaseA));
 Zb = amplB * sin(kB * Rb + (phi+phaseB));
 Zmix = Za + Zb;
 
-%figure1 = surf(XArea, YArea, Zmix); 
+% Sufaces with sinusoidal waves is plotted
+subplot(1,2,1)
+figure1 = surf(XArea, YArea, Zmix);
 
-
-%surf(Xgrund,Ygrund, Z2);
-figure1 = surf(XArea, YArea, Zmix);  %RICHTIGE ÜBERLAGERUNG
-% sliderFreq = uicontrol(figure1, 'Style', 'slider',... VERSUCH ZU GUI
-%                        'Min',10,'Max',300, ...
-%                        'Value',100, ...
+% sliderFreq = uicontrol(figure2, 'Style', 'slider',... VERSUCH ZU GUI
+%                        'Min',10,'Max',50, ...
+%                        'Value',20, ...
 %                        'SliderStep',[1 10],...
 %                        'Position',[30 20 10 10]);
 
@@ -143,14 +142,30 @@ colormap('gray');
 shading interp;
 
 %% Line plot section
-% disp(coordinates)
-% coordinateXLines = floor(coordinates(1,1))
-% coordinateYLines = floor(coordinates(1,2))
-% 
-% disp(coordinatesL);
+amplZmix = [];
+if ~isempty(coordinatesL)
+    %disp(coordinatesL);
+    coordinatesL = coordinatesL - 10; % So that a symmetric area is shown around the mouseclick
+    for ss = (1:20)
+        coordinatesL = coordinatesL + 1;
+        coordinateXLines = floor(coordinatesL(1,1));
+        coordinateYLines = floor(coordinatesL(1,2));
+        
+        amplZmix(ss) = Zmix(coordinateXLines,coordinateYLines);
+        
+        subplot(1,2,2)
+        plot(amplZmix)
+        
+        maxAmplZmix = (max(amplA, amplB))*2;
+        ylim([-maxAmplZmix maxAmplZmix]);
+        
+    end
+    coordinatesL = [];
+end
+disp(amplZmix)
 
 % if ~isempty(coordinatesL)
-%     % Hier kommt dann der Linienplot hin
+%     Hier kommt dann der Linienplot hin
 %     xVec = coordinatesL(1)-5:coordinatesL(1)+5;
 %     yVec = coordinatesL(2)-5:coordinatesL(2)+5;
 % end
