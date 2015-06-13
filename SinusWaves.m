@@ -12,19 +12,20 @@ global YArea
 global minArea
 global maxArea
 global resolution
+global phi
+phi = -1;    % onetime set of variable for wave-movement
 
-%------------------------------------------------------------------------------------------------------------
+
 %% Input dialog is used to set parameters
 InputDialog
 
-%------------------------------------------------------------------------------------------------------------
 
-phi = 1;    % onetime set of variable for wave-movement
+
 
 % variables for size of area are Set 
 minArea = 50;   % so that indices are always > 0 even if lineplot is made 
                 %at a corner
-maxArea = 450;
+maxArea = 350;
 
 resolution = 1; % the "resolution" (stepsize) of the area is set
 

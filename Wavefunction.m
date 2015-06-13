@@ -9,6 +9,8 @@ global coordinatesL
 global mousebutton
 
 % variables are set global to fetch them from "SinusWaves" script
+global phi
+
 global XArea
 global YArea
 
@@ -46,6 +48,7 @@ end
 
 %% Calculation of parameters used in generating sinusoids
 c = 343;          % sound velocity for calculating frequency
+
 
 % input frequency is transformed to wave number
 kA = (2*pi()*freqA)/c;  
@@ -96,9 +99,8 @@ yb=(minArea - coordinatesB(1,2)):resolution:(maxArea - coordinatesB(1,2));
 
 
 %% Animation of the sinusoidal waves
-% MUSS NOCH VERNÜNFTIG HOCHGEZÄHLT WERDEN!
-time = clock;
-phi = time(6)*-2;
+% the phase is counted backwards so the waves are moving from center away
+phi = phi - 1;
 
 % radial expansion of sources A and B
 Ra=sqrt(Xa.^2+Ya.^2);       
