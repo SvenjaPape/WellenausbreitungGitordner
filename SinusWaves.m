@@ -2,37 +2,7 @@
 clear all
 close all
 
-global freqA
-global freqB
-global amplA
-global amplB
-global phaseA
-global phaseB
-global angle
-
-%% Input dialog for disired parameters of sources
-prompt={'Enter frequency of source A:',...
-        'Enter frequency of source B:',...
-        'Enter amplitude of source A:', ...
-        'Enter amplitude of source B:', ...
-        'Enter phase of source A:'...
-        'Enter phase of source B:', ...
-        '3D oder 2D eingeben'};
-name='Input for sinusoids';
-numlines=1;
-defaultanswer={'10','10', '1', '1',  '0', '180', '2D'};
-answer=inputdlg(prompt,name,numlines,defaultanswer);
-
-freqA = str2double(answer{1});
-freqB = str2double(answer{2});
-amplA = str2double(answer{3});
-amplB = str2double(answer{4});
-phaseA = str2double(answer{5});
-phaseB = str2double(answer{6});
-angle = answer{7};
-
-phi = 1;    % onetime set of variable for wave-movement
-
+%% Important variables are set global for further use in "Wavefunction"
 global xArea
 global yArea
 
@@ -42,6 +12,14 @@ global YArea
 global minArea
 global maxArea
 global resolution
+
+%------------------------------------------------------------------------------------------------------------
+%% Input dialog is used to set parameters
+InputDialog
+
+%------------------------------------------------------------------------------------------------------------
+
+phi = 1;    % onetime set of variable for wave-movement
 
 % variables for size of area are Set 
 minArea = 50;   % so that indices are always > 0 even if lineplot is made 

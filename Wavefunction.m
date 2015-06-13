@@ -22,7 +22,8 @@ global amplA
 global amplB
 global phaseA
 global phaseB
-global angle
+
+
 
 
 %% Coordinates are splitted for Sources A/B and line plot
@@ -112,11 +113,7 @@ Zmix = Za + Zb; % ... and their interference is calculated
 subplot(1,2,1);
 figure1 = surf(XArea, YArea, Zmix);
 
-% sliderFreq = uicontrol(figure2, 'Style', 'slider',... VERSUCH ZU GUI
-%                        'Min',10,'Max',50, ...
-%                        'Value',20, ...
-%                        'SliderStep',[1 10],...
-%                        'Position',[30 20 10 10]);
+
 
 set(figure1,'ButtonDownFcn',@clickCallback);
 
@@ -129,12 +126,8 @@ TitleWave = {'Place sources by', 'double click right or left'};
 title(TitleWave)
 color('m');
 
-% the view-angle on the surface plot is set, for the 2D or 3D-view 
-if strcmp(angle,'3D')
-    view([0 50])
-else
-    view([0 90])
-end
+view([0 90])    % "2D"-view from above 
+
 
 % amplitudes are shown in nuances of gray
 colormap('gray');   
