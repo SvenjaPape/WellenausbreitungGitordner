@@ -62,3 +62,17 @@ Version 0.4.3 - > 13.06.2015
 - Computing power was reduced by lower maxArea. Using a global variable: phase can be incremented now.
 
 **Explanation of the MATLAB-Code**
+
+ - **SinusWaves** is a MATLAB script which is necessary to run the simulation of the wave propagation of two sinusoidals. To be able to use this script, it must be executed by running it with run(SinusWaves.m). As output you get a GUI which performs the simulation of the sinusoidal waves.
+ 
+ - **Wavefunction** is a function to calculate and animate the sinusoidals and the line plot. If you want to run this script you have to run the Wavefunction by entering the input parameter (run Wavefunction(handle,event)). In this case the handle is a figure handle and the event needs to be empty. As output you get the animation of the sinusoidals and the lineplot, which are included into the GUI, which is opened by SinusWaves.   
+
+ - **sliderCallback**
+
+
+ 
+
+
+ - **InputDialog** is a script to define all used uicontrols and read out their values. To use this script you need to running it by run(InputDialog.m). As output you get a collection of sliders to change the value of signal related variables. Now you are abel to change the different sliders and see different amplitudes, frequencies and phases. So the different settings change the animated GUI or the used sources, if the InputDialog is used in combination with the script SinusWaves.
+
+ - **clickCallback** is a callback function which can be used by running clickCallback(ClickHandle,event). The input parameter is on the one side the handle (figure handle) and on the other side the emty event. As output you get the coordinates which are belonging to the position of the mouseclick. Without this function you aren´t abel to set the sources on different place in the GUI becaues you´ll get no coordinates to work with.
