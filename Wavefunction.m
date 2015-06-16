@@ -8,6 +8,16 @@ function Wavefunction(handle, event)
 
 % Author: A. Decker, A. Morgenstern, S. Pape
 % (c) A.Decker, A. Morgenster, S. Pape Jade Hochschule 
+% This program is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+% 
+% This program is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
 % applied licence see LICENCE.md
 
 %% Global variables
@@ -35,6 +45,7 @@ global amplB
 global phaseA
 global phaseB
 
+% variable is set global to use it and it's value in other files 
 global statusT
 
 
