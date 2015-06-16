@@ -41,7 +41,7 @@ Version 0.1.1 -> 09.06.2015
 Version 0.2.1 -> 09.06.2015 
 - The sources can be placed arbitrarily by right and left mouse click.
 
-Version 0.2.1 -> 11.06.2015 
+Version 0.2.2 -> 11.06.2015 
 - Try out of different GUI features (GUI-Slider is commented out. Improving commentation of the function clickCallback.)
 
 Version 0.3.1 - > 06.12.2015 
@@ -61,6 +61,9 @@ Version 0.4.2 - > 13.06.2015
 
 Version 0.4.3 - > 13.06.2015 
 - Computing power was reduced by lower maxArea. Using a global variable, the phase is incremented to get animated waves.
+
+Version 1.0.0 - > 16.06.2015 
+- New function SliderCallback created. This function represents one sliderCallback for all Sliders. Main task to read the values from the sliders and update them. Changing the values of the Phase-Slider into radian.
 
 **Explanation of the MATLAB-Code**
 
