@@ -9,14 +9,17 @@ In this case the sound source are sinusoidale waves. These waves should emit cir
 In addition amplitude, frequency and the startingphase should be able to be set for each of the two sources. 
 
 **Usage and an instruction for the user**
-**Short version**
+
+**> Short version**
 - Start script SinusWaves with MATLAB R2015a.
+- Set desired parameters with sliders (anytime).
+- Activate button "Click mode" before interacting with waveplot.
 - Right and left mouseclick in the waveplot to set sources.
-- Set desired parameters with sliders.
 - To get a lineplot: Hold shift and click anywhere in waveplot with left mousebutton. 
 
-**Long version**
-In order to run the scripts and functions, MATLAB R2015a must be used. The script SinusWaves is required to represent the animated sine presentation, after running the script a GUI will follow. This GUI should be operated in full-screen mode, so that an entire and well representation is allowed. After that, different values for the frequency, amplitude and phase can be adjusted by using the six different sliders. In each case, three of the sliders are responsible for one source. So it´s possible to specify the sources by different parameter values for the sources. The placement of the sources is done by clicking into the simulation. On this occasion, the positions can be freely chosen and changed always during the whole simulation. Setting the Source "left" is done by pressing the left and Source "right" by pressing the right mouse button. When you press the left mouse button and shift, a line plot will be presented. This lineplot shows the local waveform or rather the local sum of the two sources. The user can change the parameters during the whole run.
+**> Long version**
+
+In order to run the scripts and functions, MATLAB R2015a must be used. The script SinusWaves is required to represent the animated sine presentation, after running the script a GUI will follow. This GUI should be operated in full-screen mode, so that an entire and well representation is allowed. After that, different values for the frequency, amplitude and phase can be adjusted by using the six different sliders. In each case, three of the sliders are responsible for one source. So it´s possible to specify the sources by different parameter values for the sources. Before you can choose the position of the sources, you have to click the "Click mode"-button. If this button is clicked you can set the sources by clicking into the simulation. On this occasion, the positions can be freely chosen and changed always during the whole simulation. Setting the Source "left" is done by pressing the left and Source "right" by pressing the right mouse button. Before you can get the lineplot you also have to click the button "Click mode". When you clicked the button you are allowed to press the left mouse button and shift. After that, a line plot will be presented. This lineplot shows the local waveform or rather the local sum of the two sources. The user can change the parameters during the whole run.
 
 **Dependencies and installation tips**
 
@@ -65,6 +68,9 @@ Version 0.4.3 - > 13.06.2015
 Version 1.0.0 - > 16.06.2015 
 - New function SliderCallback created. This function represents one sliderCallback for all Sliders. Main task to read the values from the sliders and update them. Changing the values of the Phase-Slider into radian.
 
+Version 1.1.1 - > 16.06.2015 
+- Bug, that sources/lineplot couldn´t be set sometimes, is now fixed. Timer is stopped in order to set the sources correctly. An errordialog was created to brief the users, if they want to set the sources without clicking the button "Click mode". A new backgroundcolor of the GUI is set.
+
 **Explanation of the MATLAB-Code**
 
  - **SinusWaves** is a MATLAB script which is necessary to run the simulation of the wave propagation of two sinusoidals. To be able to use this script, it must be executed by running it with run(SinusWaves.m). As output you get a GUI which performs the simulation of the sinusoidal waves.
@@ -73,6 +79,6 @@ Version 1.0.0 - > 16.06.2015
 
  - **sliderCallback** is a function, which includes all sliderCallbacks of the different sliders. To use this script you need to running ist by run  sliderCallback(handle,event). In this case the handle is a figure handle and the event needs to be empty. As output you get animated sinusoidals and the lineplot. The main task of this Callbackfunction is to read the values from the sliders and update them.
 
- - **InputDialog** is a script to define all used uicontrols and read out their values. To use this script you need to running it by run(InputDialog.m). As output you get a collection of sliders to change the value of signal related variables. Now you are abel to change the different sliders and see different amplitudes, frequencies and phases. So the different settings change the animated GUI or the used sources, if InputDialog is used in combination with the script SinusWaves.
+ - **InputDialog** is a script to define all used uicontrols and read out their values. To use this script you need to running it by run(InputDialog.m). As output you get a collection of sliders to change the value of signal related variables. Now you are abel to change the different sliders and see different amplitudes, frequencies and phases. So the different settings change the animated GUI or the used sources, if InputDialog is used in combination with the script SinusWaves. Button to stop the timer is created in this script.
 
- - **getClick** is a callback function which can be used by running clickCallback(ClickHandle,event). The input parameter is on the one side the handle (figure handle) and on the other side the empty event. As output you get the coordinates which are belonging to the position of the mouseclick. Without this function you aren´t abel to set the sources on different place in the GUI becaues you´ll get no coordinates to work with.
+ - **clickCallback** is a callback function which can be used by running clickCallback(ClickHandle,event). The input parameter is the handle (figure handle) and the empty event. As output you get the coordinates which are belonging to the position of the mouseclick. Without this function you aren´t abel to set the sources to a different position in the GUI, because you´ll get no coordinates to work with. The option of stopping the timer is given now and a "Click mode"-button is created. It´s created to get the possibility of setting the sources correctly. Also an error dialog will be shown, when the user want to place a source without clicking the button "Click mode".
