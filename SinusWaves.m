@@ -9,6 +9,9 @@
 clear all 
 close all
 
+global statusT
+statusT = 1;
+
 %% Important variables are set global for further use in "Wavefunction"
 
 global xArea
@@ -21,6 +24,8 @@ global minArea
 global maxArea
 global resolution
 global phi
+
+global t
 
 phi = -1;    % onetime set of variable for wave-movement
 
@@ -36,12 +41,12 @@ yArea = minArea:resolution:maxArea;
 [XArea,YArea] = meshgrid(xArea,yArea);
 
 global figure1
-figure1 = figure();
+figure1 = figure('Color', [0.9 0.98 0.99]);
 
 % Input dialog is used to set parameters
 InputDialog
 
-t = timer('Period', 0.3, 'TimerFcn', @Wavefunction, 'ExecutionMode', 'FixedRate');
+t = timer('Period', 0.35, 'TimerFcn', @Wavefunction, 'ExecutionMode', 'FixedRate');
 start(t);
 uiwait(figure1);
 stop(t);

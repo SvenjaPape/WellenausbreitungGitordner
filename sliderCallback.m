@@ -17,26 +17,26 @@ global amplA
 global amplB
 global phaseA
 global phaseB
+global status
+
+global t
+
 T =  num2str(handles.Tag);  % get the tag of the uicontrol as a string
 % if the incoming tag is matching, the value of the slider is changed
     if regexp(T,'SfreqA') == 1  
-        sfA = handles.Value;
-        freqA = sfA;
+        freqA = handles.Value;
     elseif regexp(T,'SfreqB') == 1
-        sfB = handles.Value;
-        freqB = sfB;
+        freqB = handles.Value;
     elseif regexp(T,'SamplA') == 1
-        saA = handles.Value;
-        amplA = saA;
+        amplA = handles.Value;
     elseif regexp(T,'SamplB') == 1
-        saB = handles.Value;
-        amplB = saB;  
+        amplB = handles.Value; 
     elseif regexp(T,'SphasA') == 1
-        spA = handles.Value;
-        phaseA = spA;  
+        phaseA = handles.Value; 
     else spB = handles.Value;
-        phaseB = spB;  
+        phaseB = spB;
     end
+
 end
 
 

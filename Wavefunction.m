@@ -35,13 +35,18 @@ global amplB
 global phaseA
 global phaseB
 
+global statusT
+
+
+
 %% Coordinates are splitted for Sources A/B and line plot
-% it is checked which mouse-button the user clicked (and if shift was held) 
-if strcmp(mousebutton,'right')
+% it is checked which mouse-button the user clicked (and if shift was held)
+%additionally it's checked if 'Click mode' is activated
+if strcmp(mousebutton,'right') && statusT == 0 
     coordinatesA = coordinates;
-elseif strcmp(mousebutton,'left')
+elseif strcmp(mousebutton,'left') && statusT == 0
     coordinatesB = coordinates;
-elseif strcmp(mousebutton,'leftShift')
+elseif strcmp(mousebutton,'leftShift') && statusT == 0
    coordinatesL = coordinates;
 
    % if statement prevents upper-"out of bound access" in later line-plot

@@ -16,10 +16,14 @@ function [coordinates] = clickCallback(ClickHandle, event)
 % get mouse-Button side:
 % http://www.mathworks.com/matlabcentral/newsreader/view_thread/280159
 
+global statusT
+global t
+
 %% Get coordinates of mouse click
 
 % variable "coordinates" is set global to use it in "Wavefunction"
 global coordinates
+
 
 % coordinates are fetched from mouseclick
 axesHandle  = get(ClickHandle,'Parent');
@@ -42,5 +46,13 @@ switch get(gcf, 'selectiontype')
         mousebutton = 'leftShift';
 end
 
+% timer is started again after setting source / choose line plot, an Error
+%is displayed if the user clicks without activating the 'Click mode'
+if statusT == 1
+    figure2 = errordlg('Please click on the Click mode-button first!', ...
+             'Click mode Error');
+else
+    start(t)
+    statusT = 1;
 end
 
