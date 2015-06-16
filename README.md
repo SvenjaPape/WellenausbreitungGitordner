@@ -53,7 +53,7 @@ Version 0.3.2 - > 13.06.2015
 Version 0.3.3 - > 13.06.2015 
 - Fixed a bug in "click callback" and "left shift" has been renamed to "left shift". On this occasion, the amplitude is indicated by "Zmix", more than 5 points before and after the elective point in wave direction. For this, the left mouse button+shift must be created. (ISSUE: Works so far in the positive range) Further problems existing artifacts in waveplot, partly missing registration of the mouse button and just representation in positiven area possible.
 
-Version 0.4.1 - > 13/06/2015 
+Version 0.4.1 - > 13.06.2015 
 - New creation of the function for displaying the line plot at any point in Waveplot. Bugs have been removed, before only in 1st quadrant a line plot was possible and an error occured when clicking near the edges/axes. Furthermore, the axes were improved and unnecessary labels removed. Adding a short user manual as a title. Revise and supplement missing commentary.
 
 Version 0.4.2 - > 13.06.2015 
