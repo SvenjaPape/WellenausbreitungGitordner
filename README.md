@@ -68,11 +68,7 @@ Version 0.4.3 - > 13.06.2015
  
  - **Wavefunction** is a function to calculate and animate the sinusoidals and the line plot. If you want to run this script you have to run the Wavefunction by entering the input parameter (run Wavefunction(handle,event)). In this case the handle is a figure handle and the event needs to be empty. As output you get the animation of the sinusoidals and the lineplot, which are included into the GUI, which is opened by SinusWaves.   
 
- - **sliderCallback**
-
-
- 
-
+ - **sliderCallback** is a function, which includes all sliderCallbacks of the different sliders. To use this script you need to running ist by run  sliderCallback(handle,event). In this case the handle is a figure handle and the event needs to be empty. As output you get animated sinusoidals and the lineplot. The main task of this Callbackfunction is to read the values from the sliders and update them.
 
  - **InputDialog** is a script to define all used uicontrols and read out their values. To use this script you need to running it by run(InputDialog.m). As output you get a collection of sliders to change the value of signal related variables. Now you are abel to change the different sliders and see different amplitudes, frequencies and phases. So the different settings change the animated GUI or the used sources, if InputDialog is used in combination with the script SinusWaves.
 
