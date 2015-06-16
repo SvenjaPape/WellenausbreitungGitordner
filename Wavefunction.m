@@ -1,4 +1,14 @@
 function Wavefunction(handle, event)
+% function to calculate and animate the sinusoidals and the line plot
+% Usage: Wavefunction(handle,event)
+% Input parameter:
+%       handle:     figure handle
+%       event:      left empty
+% Output: animation of sinusoidals and lineplot   
+
+% Author: A. Decker, A. Morgenstern, S. Pape
+% (c) A.Decker, A. Morgenster, S. Pape Jade Hochschule 
+% applied licence see LICENCE.md
 
 %% Global variables
 % variables are set global to fetch them from clickCallback-function
@@ -25,9 +35,6 @@ global amplB
 global phaseA
 global phaseB
 
-
-
-
 %% Coordinates are splitted for Sources A/B and line plot
 % it is checked which mouse-button the user clicked (and if shift was held) 
 if strcmp(mousebutton,'right')
@@ -45,25 +52,20 @@ elseif strcmp(mousebutton,'leftShift')
 
 end
 
-
 %% Calculation of parameters used in generating sinusoids
 c = 343;          % sound velocity for calculating frequency
 
-
 % input frequency is transformed to wave number
-kA = (2*pi()*freqA)/c;  
-kB = (2*pi()*freqB)/c;
+kA = (2*pi*freqA)/c;  
+kB = (2*pi*freqB)/c;
 
-% input phase in degree is transformed to radiant
-phaseA = (2*pi()/360)*phaseA;
-phaseB = (2*pi()/360)*phaseB;
-
+% input phase in degree is transformed to radian
+% phaseA = ((2*pi)/360)*phaseA;
+% phaseB = ((2*pi)/360)*phaseB;
 
 % variables for coordinates A/B are set to center of plot, if the 
-%coordinates aren't set already
+% coordinates aren't set already
 startPoint = (maxArea + minArea)/2; % center of plot is calculated
-%moveNumber = (startPoint - minArea);
-
 
 if isempty(coordinates)
     coordinates = [startPoint startPoint];
@@ -77,30 +79,17 @@ if isempty(coordinatesB)
     coordinatesB = [startPoint startPoint];
 end
 
-
-% the coordinates of the sources A and B are set, default place is central
-% xA =(minArea - coordinatesA(1)):resolution:(maxArea - coordinatesA(1));
-% yA =(minArea - coordinatesA(2)):resolution:(maxArea - coordinatesA(2));
-% [Xa,Ya] = meshgrid(xA,yA); % create rectangullar mesh
-
-
-
-
 xA =(minArea - coordinatesA(1,1)):resolution:(maxArea - coordinatesA(1,1));
 yA =(minArea - coordinatesA(1,2)):resolution:(maxArea - coordinatesA(1,2));
-[Xa,Ya] = meshgrid(xA,yA); % create rectangullar mesh
-
-
+[Xa,Ya] = meshgrid(xA,yA); % create rectangular mesh
 
 xb=(minArea - coordinatesB(1,1)):resolution:(maxArea - coordinatesB(1,1));
 yb=(minArea - coordinatesB(1,2)):resolution:(maxArea - coordinatesB(1,2));
 [Xb,Yb] = meshgrid(xb,yb);
 
-
-
 %% Animation of the sinusoidal waves
-% the phase is counted backwards so the waves are moving from center away
-phi = phi - 1;
+% the phase is counted backwards so that the waves are moving from center away
+phi = phi -1 ;
 
 % radial expansion of sources A and B
 Ra=sqrt(Xa.^2+Ya.^2);       
@@ -111,11 +100,10 @@ Za = amplA * sin(kA * Ra + (phi+phaseA));
 Zb = amplB * sin(kB * Rb + (phi+phaseB));
 Zmix = Za + Zb; % ... and their interference is calculated
 
-% Sufaces with sinusoidal waves is plotted in subplot
-subplot(1,2,1);
+% surface with sinusoidal waves is plotted in subplot
+subplot(1,3,2)
+set(gca, 'OuterPosition', [0.21, 0.05, 0.4, 0.9])
 figure1 = surf(XArea, YArea, Zmix);
-
-
 
 set(figure1,'ButtonDownFcn',@clickCallback);
 
@@ -124,12 +112,11 @@ xlim([minArea maxArea]);
 ylim([minArea maxArea]);
 axis equal
 axis off
-TitleWave = {'Place sources by', 'double click right or left'};
+TitleWave = {'Place sources by', 'clicking right or left mousebutton'};
 title(TitleWave)
 color('m');
 
 view([0 90])    % "2D"-view from above 
-
 
 % amplitudes are shown in nuances of gray
 colormap('gray');   
@@ -137,23 +124,24 @@ shading interp;
 
 %% Line plot section
 amplZmix(10)=0;     % preallocate vector for amplitudes
-subplot(1,2,2)      % subplot is created already at this point, so that the 
-                    %area next to the waveplot isn't empty
+subplot(1,3,3)      % subplot is created already at this point, so that the 
+                    % area next to the waveplot isn't empty
+set(gca, 'OuterPosition', [0.64, 0.05, 0.35, 0.9])
+      
 set(gca,'XTickLabel',{}) % hide X-labels
 
 % display help for user
 TitleLine = {'LINEPLOT', 'Click "left+Shift" in waveplot'};
 title(TitleLine) 
 
-
 % if statement to check if a place for line-plot is chosen 
 if ~isempty(coordinatesL)
     coordinatesL = coordinatesL - 10; % So that a length of 10 is shown
-                                      %align with the mouseclick
+                                      % align with the mouseclick
                                       
     % Amplitude of sinusoidal-interference is fetched at user chosen
-    %coordinates for line-plot, and at 9 further coordinates align with
-    %click to get short live-plot
+    % coordinates for line-plot, and at 9 further coordinates align with
+    % click to get short live-plot
     for ss = (1:10)
         coordinatesL = coordinatesL + 1;
         
@@ -166,7 +154,7 @@ if ~isempty(coordinatesL)
         
         plot(amplZmix,'k-')
         
-        % Axis of line-plot are set
+        % axis of line-plot are set
         maxAmplZmix = (max(amplA, amplB))*2;
         xlim([1 10]);
         ylim([-maxAmplZmix maxAmplZmix]);
